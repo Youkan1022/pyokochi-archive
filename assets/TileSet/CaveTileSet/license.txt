@@ -1,0 +1,14 @@
+LICENSE
+
+You are allowed to:
+- Use this asset in personal and commercial projects.
+- Modify and edit the asset to fit your project.
+
+You are NOT allowed to:
+- Resell or redistribute this asset as-is.
+- Repackage this asset and sell it as part of another asset pack.
+- Share the files publicly (free or paid).
+
+Credit is not required, but appreciated.
+
+This license applies only to the original purchaser.

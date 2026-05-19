@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://0e0cljwvquw7"]
+
+[ext_resource type="Texture2D" uid="uid://fhd88r1h38h8" path="res://assets/TileSet/GrassFieldTileSet/full_spritesheet/Tile_GrassField.png" id="1_662lp"]
+[ext_resource type="Script" uid="uid://n3rpbf60aevp" path="res://scenes/start/start.gd" id="1_oeh0t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeh0t"]
+atlas = ExtResource("1_662lp")
+region = Rect2(104, 97, 150, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ae20m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeh0t")
+}],
+"loop": true,
+"name": &"start",
+"speed": 5.0
+}]
+
+[node name="start" type="StaticBody2D" unique_id=596774167]
+script = ExtResource("1_oeh0t")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=458868262]
+position = Vector2(7, -15)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1409400954]
+position = Vector2(11, -33)
+sprite_frames = SubResource("SpriteFrames_ae20m")
+animation = &"start"

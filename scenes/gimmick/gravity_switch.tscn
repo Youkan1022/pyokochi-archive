@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://e5dy0scpjwwo"]
+
+[ext_resource type="Texture2D" uid="uid://dsohsns6our3j" path="res://assets/gimmick/morbifungi.png" id="1_xtghm"]
+[ext_resource type="Script" uid="uid://n5hvi46t4q3q" path="res://scenes/gimmick/gravity_switch.gd" id="1_y83fh"]
+
+[sub_resource type="Gradient" id="Gradient_y83fh"]
+offsets = PackedFloat32Array(0.52014655, 0.64835167, 0.8058608)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tmrh3"]
+gradient = SubResource("Gradient_y83fh")
+fill = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y83fh"]
+size = Vector2(34, 31)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y83fh"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, -2, 0)
+scale_max = 3.0
+color = Color(0.7568147, 0.659125, 0.99497503, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tmrh3"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 20.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 0, 0)
+spread = 10.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+color = Color(0.63529414, 0.44313726, 0.9882353, 1)
+
+[node name="gravity_switch" type="Area2D" unique_id=1992995170]
+script = ExtResource("1_y83fh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1660620129]
+texture = ExtResource("1_xtghm")
+region_enabled = true
+region_rect = Rect2(128, 0, 32, 32)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2105755938]
+position = Vector2(0, -6)
+color = Color(0.67, 0.27, 1, 1)
+energy = 1.5
+texture = SubResource("GradientTexture2D_tmrh3")
+texture_scale = 0.4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1797734995]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_y83fh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1357224070]
+z_index = -1
+emitting = false
+amount = 50
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_y83fh")
+
+[node name="GPUParticles2D_circle" type="GPUParticles2D" parent="." unique_id=778258913]
+z_index = -2
+position = Vector2(-1, 0)
+emitting = false
+amount = 2000
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_tmrh3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
