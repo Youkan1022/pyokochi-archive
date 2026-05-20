@@ -39,12 +39,14 @@ func set_theme(theme: String) -> void:
 			texture = dirt_texture
 			modulate = Color(0.65, 0.25, 0.1)
 			material = null
-			mat.scale_min = 0.5  # dirtのみスケール調整
+			mat.scale_min = 0.5
 			mat.scale_max = 1.0
 		"desert":
 			texture = desert_texture
 			modulate = Color(1.0, 0.85, 0.5)
 			material = null
+			mat.scale_min = 0.5
+			mat.scale_max = 1.0
 		"snow":
 			texture = snow_texture
 			material = canvas_item_material

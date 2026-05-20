@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://biaxfbxlr24a0"]
+
+[ext_resource type="Script" uid="uid://nut8xf3527qh" path="res://scenes/gimmick/bomb.gd" id="1_w4nhf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4nhf"]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_72jhv"]
+radius = 48.0
+
+[node name="Bomb" type="Area2D" unique_id=1075094121]
+script = ExtResource("1_w4nhf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1985050160]
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=693488466]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=257824831]
+shape = SubResource("CircleShape2D_w4nhf")
+
+[node name="ExplosionArea" type="Area2D" parent="." unique_id=769879680]
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea" unique_id=6608373]
+shape = SubResource("CircleShape2D_72jhv")

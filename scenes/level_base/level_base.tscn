@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://0e0cljwvquw7" path="res://scenes/start/start.tscn" id="5_kr674"]
 [ext_resource type="PackedScene" uid="uid://bhehnsuxdvi8b" path="res://scenes/goal/goal.tscn" id="6_tn631"]
 [ext_resource type="Script" uid="uid://h8qvj28c2cqk" path="res://scenes/camera/camera.gd" id="6_v0a34"]
+[ext_resource type="PackedScene" uid="uid://biaxfbxlr24a0" path="res://scenes/gimmick/bomb.tscn" id="8_76fv4"]
 [ext_resource type="PackedScene" uid="uid://ihiqw4fyt6bp" path="res://scenes/hud/hud.tscn" id="8_cr6la"]
 [ext_resource type="PackedScene" uid="uid://dg650oc35x4cw" path="res://scenes/Background/background_grass.tscn" id="9_cr6la"]
 [ext_resource type="PackedScene" uid="uid://0n5pqgq7n5ec" path="res://scenes/tilemap/tilemap_ground.tscn" id="11_uakon"]
@@ -36,10 +37,10 @@ script = ExtResource("6_v0a34")
 position = Vector2(-320, 180)
 
 [node name="spikes" parent="." unique_id=1826627450 instance=ExtResource("4_ncu3c")]
-position = Vector2(117, -41)
+position = Vector2(270, -40)
 
 [node name="start" parent="." unique_id=596774167 instance=ExtResource("5_kr674")]
-position = Vector2(112, -32)
+position = Vector2(111, -30)
 
 [node name="goal" parent="." unique_id=276107685 instance=ExtResource("6_tn631")]
 position = Vector2(622, -65)
@@ -57,3 +58,6 @@ position = Vector2(220, -40)
 [node name="gravity_switch2" parent="." unique_id=1204702760 instance=ExtResource("12_0oed1")]
 position = Vector2(214, -184)
 scale = Vector2(-1, -1)
+
+[node name="Bomb" parent="." unique_id=1075094121 instance=ExtResource("8_76fv4")]
+position = Vector2(174, -40)

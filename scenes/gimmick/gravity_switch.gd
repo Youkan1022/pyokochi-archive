@@ -7,6 +7,7 @@ func _ready() -> void:
 	$PointLight2D.enabled = false
 	$PointLight2D.energy = 0.0
 	SignalManager.on_gravity_flipped.connect(_on_gravity_flipped)
+	SignalManager.on_stage_reset.connect(_on_stage_reset)
 	# 天井設置（Scale Y=-1）の場合、パーティクルの重力を反転
 	var material = $GPUParticles2D.process_material.duplicate() as ParticleProcessMaterial
 	$GPUParticles2D.process_material = material
@@ -52,3 +53,11 @@ func _on_gravity_flipped(active: bool) -> void:
 			.set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_IN)
 		tween.tween_callback($PointLight2D.set.bind("enabled", false))
+
+
+func _on_stage_reset() -> void:
+	is_active = false
+	player_nearby = false
+	$PointLight2D.enabled = false
+	$PointLight2D.energy = 0.0
+	$GPUParticles2D.emitting = false
