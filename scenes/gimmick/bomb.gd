@@ -60,11 +60,13 @@ func _activate() -> void:
 	state = BombState.TICKING
 	fuse_timer = fuse_duration
 	animated_sprite.play("ticking")
+	AudioManager.play("bomb_ticking")
 
 
 func _explode() -> void:
 	state = BombState.EXPLODING
 	animated_sprite.modulate.a = 1.0
+	AudioManager.stop("bomb_ticking")
 
 	# 爆発判定を有効化（trapLayerとしてプレイヤーHitBoxと衝突する）
 	explosion_shape.disabled = false

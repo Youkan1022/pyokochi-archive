@@ -163,10 +163,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w4nhf"]
-radius = 20.0
+radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_72jhv"]
-radius = 20.0
+radius = 32.0
 
 [node name="Bomb" type="Area2D" unique_id=1075094121]
 script = ExtResource("1_w4nhf")
@@ -184,7 +184,6 @@ shape = SubResource("CircleShape2D_w4nhf")
 
 [node name="ExplosionArea" type="Area2D" parent="." unique_id=769879680 groups=["trap"]]
 collision_layer = 4
-monitoring = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea" unique_id=6608373]
 shape = SubResource("CircleShape2D_72jhv")

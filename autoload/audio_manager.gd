@@ -16,6 +16,8 @@ var SOUNDS = {
 	"bow_charge":     {"path": "res://assets/SoundEffect/Bow_Release.wav", "volume_db": 0.0},
 	"land":           {"path": "", "volume_db": 0.0},  # TODO: ファイルを追加したら設定
 	"goal":           {"path": "res://assets/SoundEffect/goal.wav", "volume_db": -20.0},
+	"explosion":      {"path": "res://assets/SoundEffect/explosionCrunch_000.ogg", "volume_db": -20.0},
+	"bomb_ticking":   {"path": "res://assets/SoundEffect/bomb_ticking.mp3", "volume_db": -10.0},  # TODO: SEファイルを追加したら設定
 }
 
 # AudioStreamPlayer のプール（同時再生対応）
@@ -48,6 +50,12 @@ func play(key: String) -> void:
 	if player.stream == null:
 		return
 	player.play()
+
+
+func stop(key: String) -> void:
+	if not _players.has(key):
+		return
+	_players[key].stop()
 
 # SEファイルを動的に差し替える（新しいファイルを追加した際に使用）
 func set_sound(key: String, path: String) -> void:

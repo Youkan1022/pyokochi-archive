@@ -110,6 +110,20 @@ func _ready() -> void:
 		land_frames.add_frame("play", atlas)
 	set_meta("land_dust_frames", land_frames)
 
+	# --- hit: ダメージエフェクト用 (240x48, 48x48 x 5フレーム) ---
+	var hit_sheet: Texture2D = load("res://assets/Rocky Roads/FX/hit.png")
+	var hit_frames := SpriteFrames.new()
+	hit_frames.add_animation("play")
+	hit_frames.set_animation_loop("play", false)
+	hit_frames.set_animation_speed("play", 14.0)
+	for i in range(5):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = hit_sheet
+		atlas.region = Rect2(i * 48, 0, 48, 48)
+		atlas.filter_clip = true
+		hit_frames.add_frame("play", atlas)
+	set_meta("hit_frames", hit_frames)
+
 # 走りほこりを1粒スポーン
 func _spawn_run_dust() -> void:
 	var frames: SpriteFrames = get_meta("run_dust_frames")
@@ -137,6 +151,38 @@ func _spawn_landing_dust() -> void:
 		get_tree().current_scene.add_child(dust)
 		dust.play("play")
 		dust.animation_finished.connect(dust.queue_free)
+
+# 壁張り付きほこりを壁面向きにスポーン
+func _spawn_wall_cling_dust() -> void:
+	var frames: SpriteFrames = get_meta("land_dust_frames")
+	var wall_n := get_wall_normal()
+	# wall_n.x > 0: 右壁 → 左向き展開、wall_n.x < 0: 左壁 → 右向き展開
+	var wall_side := 1 if wall_n.x > 0 else -1
+	for side in [-1, 1]:
+		var dust := AnimatedSprite2D.new()
+		dust.sprite_frames = frames
+		# landingエフェクトを壁向きに90度回転
+		dust.rotation_degrees = 90.0 * wall_side
+		dust.scale = Vector2(1, 0.66)
+		dust.z_index = z_index + 1
+		# 壁面側に展開（上下2粒）
+		var offset := Vector2(0, side * 8)
+		dust.global_position = global_position + offset
+		get_tree().current_scene.add_child(dust)
+		dust.play("play")
+		dust.animation_finished.connect(dust.queue_free)
+
+# ダメージエフェクトをキャラ中心にスポーン
+func _spawn_hit_effect() -> void:
+	var frames: SpriteFrames = get_meta("hit_frames")
+	var hit := AnimatedSprite2D.new()
+	hit.sprite_frames = frames
+	hit.scale = Vector2(0.6, 0.6)  # 小さめに表示
+	hit.z_index = z_index + 2
+	hit.global_position = global_position
+	get_tree().current_scene.add_child(hit)
+	hit.play("play")
+	hit.animation_finished.connect(hit.queue_free)
 
 # 物理処理のメインループ
 func _physics_process(delta: float) -> void:
@@ -429,16 +475,23 @@ func set_state(new_state: PLAYER_STATE):
 		PLAYER_STATE.JUMP:
 			animated_sprite_2d.play("jump")
 			_run_dust_active = false
+			if old_state == PLAYER_STATE.WALL_CLING:
+				_spawn_wall_cling_dust()
+			else:
+				_spawn_landing_dust()
+			
 		PLAYER_STATE.FALL:
 			animated_sprite_2d.play("fall")
 			_run_dust_active = false
 		PLAYER_STATE.HIT:
 			animated_sprite_2d.play("down")
 			_run_dust_active = false
+			_spawn_hit_effect()
 		PLAYER_STATE.WALL_CLING:
 			animated_sprite_2d.animation = "wall_cling"
 			animated_sprite_2d.play()
 			_run_dust_active = false
+			_spawn_wall_cling_dust()
 		PLAYER_STATE.DUSH:
 			animated_sprite_2d.play("run") # 必要なら専用アニメに変更
 			_run_dust_active = false
