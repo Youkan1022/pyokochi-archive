@@ -173,13 +173,13 @@ func _spawn_wall_cling_dust() -> void:
 		dust.animation_finished.connect(dust.queue_free)
 
 # ダメージエフェクトをキャラ中心にスポーン
-func _spawn_hit_effect() -> void:
+func _spawn_hit_effect(pos: Vector2) -> void:
 	var frames: SpriteFrames = get_meta("hit_frames")
 	var hit := AnimatedSprite2D.new()
 	hit.sprite_frames = frames
 	hit.scale = Vector2(0.6, 0.6)  # 小さめに表示
 	hit.z_index = z_index + 2
-	hit.global_position = global_position
+	hit.global_position = pos
 	get_tree().current_scene.add_child(hit)
 	hit.play("play")
 	hit.animation_finished.connect(hit.queue_free)
@@ -486,7 +486,6 @@ func set_state(new_state: PLAYER_STATE):
 		PLAYER_STATE.HIT:
 			animated_sprite_2d.play("down")
 			_run_dust_active = false
-			_spawn_hit_effect()
 		PLAYER_STATE.WALL_CLING:
 			animated_sprite_2d.animation = "wall_cling"
 			animated_sprite_2d.play()
@@ -508,6 +507,20 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("trap"):
 		velocity = Vector2.ZERO
 		set_state(PLAYER_STATE.HIT)
+		# CollisionShape2D を名前で取得してAABBをクランプし接触点を推定
+		var col := area.find_child("CollisionShape2D", true, false) as CollisionShape2D
+		var contact_pos: Vector2
+		if col and col.shape:
+			var half := col.shape.get_rect().size / 2.0
+			var center := col.global_position
+			var trap_rect := Rect2(center - half, half * 2.0)
+			contact_pos = Vector2(
+				clamp(global_position.x, trap_rect.position.x, trap_rect.end.x),
+				clamp(global_position.y, trap_rect.position.y, trap_rect.end.y)
+			)
+		else:
+			contact_pos = area.global_position  # フォールバック
+		_spawn_hit_effect(contact_pos)
 		AudioManager.play("damage")
 		await get_tree().create_timer(1.5).timeout
 		SignalManager.on_player_hit.emit()

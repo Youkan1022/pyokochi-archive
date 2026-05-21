@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://tlcenl46ydi"]
+
+[ext_resource type="Script" uid="uid://w2bhacw00cr3" path="res://scenes/gimmick/circular_saw.gd" id="1_tuv3a"]
+[ext_resource type="Texture2D" uid="uid://b0uws1systfmh" path="res://assets/Rocky Roads/Enemies/saw.png" id="2_op0es"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_op0es"]
+radius = 16.03122
+
+[node name="CircularSaw" type="Area2D" unique_id=470020660 groups=["trap"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_tuv3a")
+rotate_speed = 4.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=121996668]
+texture = ExtResource("2_op0es")
+region_enabled = true
+region_rect = Rect2(0, 0, 34, 34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1861513270]
+shape = SubResource("CircleShape2D_op0es")

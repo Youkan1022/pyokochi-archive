@@ -14,13 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://0n5pqgq7n5ec" path="res://scenes/tilemap/tilemap_ground.tscn" id="11_uakon"]
 [ext_resource type="PackedScene" uid="uid://e5dy0scpjwwo" path="res://scenes/gimmick/gravity_switch.tscn" id="12_0oed1"]
 [ext_resource type="PackedScene" uid="uid://bmcl5k0j8keld" path="res://scenes/effect/wind_particles.tscn" id="13_od1d2"]
-[ext_resource type="PackedScene" uid="uid://tlcenl46ydi" path="res://scenes/gimmick/circular_saw.tscn" id="15_hltye"]
-
-[sub_resource type="Curve2D" id="Curve2D_hltye"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 318, -97, 0, 0, 0, 0, 406, -96)
-}
-point_count = 2
 
 [node name="levelBase" type="Node2D" unique_id=2105239431]
 script = ExtResource("1_48c0a")
@@ -32,6 +25,26 @@ tile_map_data = PackedByteArray("AAArAAMAAQALAAMAAAArAAIAAQALAAIAAAArAAEAAQALAAI
 
 [node name="pyokochi" parent="." unique_id=1194998460 instance=ExtResource("3_3tlib")]
 position = Vector2(49, -55)
+arrow_spawn_delay = null
+move_speed = null
+ground_acceleration = null
+ground_deceleration = null
+air_acceleration = null
+air_deceleration = null
+jump_force = null
+jump_hold_force = null
+max_jump_hold_time = null
+max_y_velocity = null
+max_jump_count = null
+wall_jump_force_x = null
+wall_jump_force_y = null
+wall_cling_push_speed = null
+wall_climb_speed = null
+wall_cling_duration = null
+dush_speed = null
+dush_duration = null
+dush_afterimage_interval = null
+dush_exit_max_up_speed = null
 
 [node name="Camera" parent="pyokochi" unique_id=439522786 instance=ExtResource("1_myc1q")]
 position = Vector2(271, -125)
@@ -42,6 +55,12 @@ script = ExtResource("6_v0a34")
 
 [node name="WindParticles" parent="pyokochi/Camera" unique_id=693732154 instance=ExtResource("13_od1d2")]
 position = Vector2(-320, 180)
+
+[node name="spikes" parent="." unique_id=1826627450 instance=ExtResource("4_ncu3c")]
+position = Vector2(270, -40)
+
+[node name="spikes2" parent="." unique_id=926725465 instance=ExtResource("4_ncu3c")]
+position = Vector2(302, -40)
 
 [node name="start" parent="." unique_id=596774167 instance=ExtResource("5_kr674")]
 position = Vector2(111, -30)
@@ -56,27 +75,12 @@ position = Vector2(622, -65)
 [node name="TileMapLayer_ground" parent="." unique_id=1456960225 instance=ExtResource("11_uakon")]
 tile_map_data = PackedByteArray("AAAJAAIABQAGAAEAAAAKAAIABQACAAEAAAALAAIABQAIAAMAAAAMAAIABQAKAAMAAAANAAIABQAJAAMAAAAOAAIABQALAAMAAAAPAAIABQALAAMAAAAQAAIABQAMAAMAAAARAAIABQAIAAMAAAASAAIABQAIAAMAAAATAAIABQAMAAMAAAAUAAIABQAJAAMAAAAVAAIABQANAAMAAAAUAAMABQAFAAQAAAATAAMABQAEAAQAAAASAAMABQALAAQAAAARAAMABQALAAQAAAAQAAMABQAKAAQAAAAKAAMABQABAAQAAAALAAMABQALAAQAAAAMAAMABQADAAMAAAANAAMABQAJAAQAAAAOAAMABQAEAAMAAAAPAAMABQACAAMAAAAQAAQABQAKAAUAAAARAAQABQAEAAMAAAASAAQABQAFAAQAAAAPAAQABQALAAQAAAAOAAQABQADAAIAAAANAAQABQADAAMAAAAMAAQABQADAAIAAAALAAQABQABAAQAAAAMAAUABQABAAQAAAANAAUABQAKAAUAAAAOAAUABQADAAIAAAAPAAUABQAKAAUAAAAQAAUABQAJAAQAAAARAAUABQAFAAMAAAARAAYABQAFAAQAAAAQAAYABQACAAQAAAAPAAYABQADAAMAAAAOAAYABQADAAIAAAANAAYABQABAAQAAAAPAAcABQAFAAQAAAAOAAcABQABAAQAAAANAPz/AwAHAAUAAAAOAPz/AwAJAAUAAAAPAPz/AwAIAAUAAAAQAPz/AwAIAAUAAAARAPz/AwAKAAUAAAA=")
 
-[node name="Gimmick" type="Node2D" parent="." unique_id=158159946]
-
-[node name="CircularSaw" parent="Gimmick" unique_id=470020660 node_paths=PackedStringArray("path") instance=ExtResource("15_hltye")]
-position = Vector2(319, -98)
-path = NodePath("../Path2D")
-
-[node name="Path2D" type="Path2D" parent="Gimmick" unique_id=625145156]
-curve = SubResource("Curve2D_hltye")
-
-[node name="Bomb" parent="Gimmick" unique_id=1075094121 instance=ExtResource("8_76fv4")]
-position = Vector2(174, -40)
-
-[node name="gravity_switch" parent="Gimmick" unique_id=1992995170 instance=ExtResource("12_0oed1")]
+[node name="gravity_switch" parent="." unique_id=1992995170 instance=ExtResource("12_0oed1")]
 position = Vector2(220, -40)
 
-[node name="gravity_switch2" parent="Gimmick" unique_id=1204702760 instance=ExtResource("12_0oed1")]
+[node name="gravity_switch2" parent="." unique_id=1204702760 instance=ExtResource("12_0oed1")]
 position = Vector2(214, -184)
-rotation = 3.1415927
+scale = Vector2(-1, -1)
 
-[node name="spikes" parent="Gimmick" unique_id=1826627450 instance=ExtResource("4_ncu3c")]
-position = Vector2(270, -40)
-
-[node name="spikes2" parent="Gimmick" unique_id=926725465 instance=ExtResource("4_ncu3c")]
-position = Vector2(302, -40)
+[node name="Bomb" parent="." unique_id=1075094121 instance=ExtResource("8_76fv4")]
+position = Vector2(174, -40)
