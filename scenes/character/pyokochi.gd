@@ -76,9 +76,77 @@ var direction: Vector2 = Vector2.ZERO
 var dush_direction: Vector2 = Vector2.ZERO
 var state: PLAYER_STATE = PLAYER_STATE.IDLE #現在の状態
 
+# 走りパーティクル
+var _run_dust_active: bool = false
+var _run_dust_timer: float = 0.0
+const RUN_DUST_INTERVAL: float = 0.08  # スポーン間隔（秒）
+
+func _ready() -> void:
+	# --- walk_dust: 走りエフェクト用 (128x16, 16x16 x 8フレーム) ---
+	var sheet: Texture2D = load("res://assets/Rocky Roads/FX/walk_dust.png")
+	var frames := SpriteFrames.new()
+	frames.add_animation("play")
+	frames.set_animation_loop("play", false)
+	frames.set_animation_speed("play", 16.0)
+	for i in range(8):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = sheet
+		atlas.region = Rect2(i * 16, 0, 16, 16)
+		atlas.filter_clip = true
+		frames.add_frame("play", atlas)
+	set_meta("run_dust_frames", frames)
+
+	# --- dust: 着地エフェクト用 (384x48, 48x48 x 8フレームの2〜5枚目 = index 1〜4) ---
+	var land_sheet: Texture2D = load("res://assets/Rocky Roads/FX/dust.png")
+	var land_frames := SpriteFrames.new()
+	land_frames.add_animation("play")
+	land_frames.set_animation_loop("play", false)
+	land_frames.set_animation_speed("play", 12.0)
+	for i in range(1, 5):  # index 1, 2, 3, 4 (2〜5枚目)
+		var atlas := AtlasTexture.new()
+		atlas.atlas = land_sheet
+		atlas.region = Rect2(i * 48, 0, 48, 48)
+		atlas.filter_clip = true
+		land_frames.add_frame("play", atlas)
+	set_meta("land_dust_frames", land_frames)
+
+# 走りほこりを1粒スポーン
+func _spawn_run_dust() -> void:
+	var frames: SpriteFrames = get_meta("run_dust_frames")
+	var dust := AnimatedSprite2D.new()
+	dust.sprite_frames = frames
+	dust.scale = Vector2(1.0, 1.0)
+	dust.z_index = z_index - 1
+	# 足元に配置（横方向はランダムにばらす）
+	var offset_x := randf_range(-4.0, 4.0)
+	dust.global_position = global_position + Vector2(offset_x, 16.0)
+	get_tree().current_scene.add_child(dust)
+	dust.play("play")
+	# アニメーション終了後に自動削除
+	dust.animation_finished.connect(dust.queue_free)
+
+# 着地ほこりを左右にスポーン
+func _spawn_landing_dust() -> void:
+	var frames: SpriteFrames = get_meta("land_dust_frames")
+	for side in [-1, 1]:
+		var dust := AnimatedSprite2D.new()
+		dust.sprite_frames = frames
+		dust.scale = Vector2(1.5, 1)  # 左右対称にフリップ
+		dust.z_index = z_index + 1
+		dust.global_position = global_position + Vector2(0, 0)
+		get_tree().current_scene.add_child(dust)
+		dust.play("play")
+		dust.animation_finished.connect(dust.queue_free)
+
 # 物理処理のメインループ
 func _physics_process(delta: float) -> void:
 	attack_cooldown = max(attack_cooldown - delta, 0.0)
+	# 走りパーティクルのタイマー更新
+	if _run_dust_active:
+		_run_dust_timer -= delta
+		if _run_dust_timer <= 0.0:
+			_spawn_run_dust()
+			_run_dust_timer = RUN_DUST_INTERVAL
 	# DUSH・壁張り付き中は重力を無効化
 	if state != PLAYER_STATE.DUSH and state != PLAYER_STATE.WALL_CLING:
 		apply_gravity(delta) # 重力の適用
@@ -340,7 +408,8 @@ func update_state(_delta: float) -> void:
 func set_state(new_state: PLAYER_STATE):
 	if new_state == state:
 		return
-	
+
+	var old_state := state
 	state = new_state
 	if state == PLAYER_STATE.WALL_CLING:
 		wall_cling_time_left = wall_cling_duration
@@ -348,21 +417,34 @@ func set_state(new_state: PLAYER_STATE):
 	match state:
 		PLAYER_STATE.IDLE:
 			animated_sprite_2d.play("idle")
+			_run_dust_active = false
+			if old_state == PLAYER_STATE.FALL or old_state == PLAYER_STATE.JUMP:
+				_spawn_landing_dust()
 		PLAYER_STATE.RUN:
 			animated_sprite_2d.play("run")
+			_run_dust_active = true
+			_run_dust_timer = 0.0
+			if old_state == PLAYER_STATE.FALL or old_state == PLAYER_STATE.JUMP:
+				_spawn_landing_dust()
 		PLAYER_STATE.JUMP:
 			animated_sprite_2d.play("jump")
+			_run_dust_active = false
 		PLAYER_STATE.FALL:
 			animated_sprite_2d.play("fall")
+			_run_dust_active = false
 		PLAYER_STATE.HIT:
 			animated_sprite_2d.play("down")
+			_run_dust_active = false
 		PLAYER_STATE.WALL_CLING:
 			animated_sprite_2d.animation = "wall_cling"
 			animated_sprite_2d.play()
+			_run_dust_active = false
 		PLAYER_STATE.DUSH:
 			animated_sprite_2d.play("run") # 必要なら専用アニメに変更
+			_run_dust_active = false
 		PLAYER_STATE.ATTACK:
 			animated_sprite_2d.play("attack")
+			_run_dust_active = false
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
