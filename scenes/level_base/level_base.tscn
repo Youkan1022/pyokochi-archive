@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://e5dy0scpjwwo" path="res://scenes/gimmick/gravity_switch.tscn" id="12_0oed1"]
 [ext_resource type="PackedScene" uid="uid://bmcl5k0j8keld" path="res://scenes/effect/wind_particles.tscn" id="13_od1d2"]
 [ext_resource type="PackedScene" uid="uid://tlcenl46ydi" path="res://scenes/gimmick/circular_saw.tscn" id="15_hltye"]
+[ext_resource type="PackedScene" uid="uid://bfg4a7yu6y0uk" path="res://scenes/gimmick/falling_platform.tscn" id="16_gnfto"]
+[ext_resource type="PackedScene" uid="uid://3xt2ru1itjn2" path="res://scenes/enemies/slime.tscn" id="17_qgxpy"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/slime_red.tscn" id="18_bkv5l"]
 
 [sub_resource type="Curve2D" id="Curve2D_hltye"]
 _data = {
@@ -80,3 +83,12 @@ position = Vector2(270, -40)
 
 [node name="spikes2" parent="Gimmick" unique_id=926725465 instance=ExtResource("4_ncu3c")]
 position = Vector2(302, -40)
+
+[node name="FallingPlatform" parent="." unique_id=1309239971 instance=ExtResource("16_gnfto")]
+position = Vector2(237, -108)
+
+[node name="Slime" parent="." unique_id=422120192 instance=ExtResource("17_qgxpy")]
+position = Vector2(109, -40)
+
+[node name="SlimeRed" parent="." unique_id=422120193 instance=ExtResource("18_bkv5l")]
+position = Vector2(422, -41)

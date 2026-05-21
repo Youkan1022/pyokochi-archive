@@ -232,6 +232,9 @@ size = Vector2(22, 43)
 radius = 11.0
 height = 40.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
+size = Vector2(18, 2)
+
 [node name="pyokochi" type="CharacterBody2D" unique_id=1194998460 groups=["player"]]
 z_index = 10
 script = ExtResource("1_o3hv8")
@@ -254,5 +257,14 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=264256711]
 position = Vector2(-1, 3)
 shape = SubResource("CapsuleShape2D_8lqx2")
+
+[node name="FootArea" type="Area2D" parent="." unique_id=1776542806]
+position = Vector2(-1, 23)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FootArea" unique_id=1754603738]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_foot")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

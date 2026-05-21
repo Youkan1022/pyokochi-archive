@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://3xt2ru1itjn2"]
+
+[ext_resource type="Script" uid="uid://8y8quybk560j" path="res://scenes/enemies/slime.gd" id="1_5g2ov"]
+[ext_resource type="Texture2D" uid="uid://bkkstlqjlf3pa" path="res://assets/Rocky Roads/Enemies/slime_blue.png" id="2_slime"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_down0"]
+atlas = ExtResource("2_slime")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_down1"]
+atlas = ExtResource("2_slime")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk0"]
+atlas = ExtResource("2_slime")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk1"]
+atlas = ExtResource("2_slime")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk2"]
+atlas = ExtResource("2_slime")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slime"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_down0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_down1")
+}],
+"loop": false,
+"name": &"down",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5g2ov"]
+size = Vector2(25, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_da3kn"]
+size = Vector2(25, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahq63"]
+size = Vector2(25, 23)
+
+[node name="Slime" type="CharacterBody2D" unique_id=422120192]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("1_5g2ov")
+ground_offset = 7.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1132422655]
+position = Vector2(0, -8)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_slime")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=640224549]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_5g2ov")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=603890025]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=188084556]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_da3kn")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=2089295625 groups=["trap"]]
+position = Vector2(0, -4)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=351805152]
+shape = SubResource("RectangleShape2D_ahq63")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1859526355]
+position = Vector2(0, -4)
+target_position = Vector2(0, 16)

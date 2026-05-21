@@ -19,5 +19,8 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(_body: Node2D) -> void:
 	queue_free()
 
-func _on_area_entered(_area: Area2D) -> void:
+func _on_area_entered(area: Area2D) -> void:
+	# 敵のHitBoxに当たった場合は親ノードの take_hit() を呼ぶ
+	if area.name == "HitBox" and area.get_parent().has_method("take_hit"):
+		area.get_parent().take_hit()
 	queue_free()
