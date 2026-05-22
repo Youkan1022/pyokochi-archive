@@ -250,7 +250,7 @@ frame_progress = 0.75605327
 position = Vector2(-1, 1.5)
 shape = SubResource("RectangleShape2D_fd52n")
 
-[node name="HitBox" type="Area2D" parent="." unique_id=1710274796]
+[node name="HitBox" type="Area2D" parent="." unique_id=1710274796 groups=["player_hitbox"]]
 collision_layer = 2
 collision_mask = 4
 

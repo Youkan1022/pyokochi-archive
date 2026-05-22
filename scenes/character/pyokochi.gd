@@ -279,7 +279,8 @@ func shoot_arrow() -> void:
 	var arrow := arrow_scene.instantiate()
 	get_tree().current_scene.add_child(arrow)
 	var dir := -1.0 if animated_sprite_2d.flip_h else 1.0
-	arrow.global_position = global_position + Vector2(dir * 30.0, 0.0)
+	var arrow_y_offset := -10.0 if is_gravity_flipped else 0.0
+	arrow.global_position = global_position + Vector2(dir * 30.0, arrow_y_offset)
 	arrow.setup(dir)
 	# アニメーション終了後に通常状態へ戻す
 	await animated_sprite_2d.animation_finished

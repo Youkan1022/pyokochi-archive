@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6vr4sxgtvhq4"
-path="res://.godot/imported/icicle.png-c57141ebe469b12c8b0f30b478fe51cd.ctex"
+uid="uid://brn06ia6yd37p"
+path="res://.godot/imported/icicle_fall.png-9159d836da4c582cb1da1cf99a94ef26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Rocky Roads/Enemies/icicle.png"
-dest_files=["res://.godot/imported/icicle.png-c57141ebe469b12c8b0f30b478fe51cd.ctex"]
+source_file="res://assets/Rocky Roads/Enemies/icicle_fall.png"
+dest_files=["res://.godot/imported/icicle_fall.png-9159d836da4c582cb1da1cf99a94ef26.ctex"]
 
 [params]
 

@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://l47ddqr06ofi"]
+
+[ext_resource type="Script" uid="uid://bwnpgwoma7r6k" path="res://scenes/gimmick/icicle.gd" id="1_xkkkl"]
+[ext_resource type="Texture2D" uid="uid://6vr4sxgtvhq4" path="res://assets/Rocky Roads/Enemies/icicle.png" id="2_4htij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0"]
+atlas = ExtResource("2_4htij")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1"]
+atlas = ExtResource("2_4htij")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0"]
+atlas = ExtResource("2_4htij")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1"]
+atlas = ExtResource("2_4htij")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2"]
+atlas = ExtResource("2_4htij")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3"]
+atlas = ExtResource("2_4htij")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4"]
+atlas = ExtResource("2_4htij")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_icicle"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1")
+}],
+"loop": false,
+"name": &"break",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4")
+}],
+"loop": false,
+"name": &"respawn",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4htij"]
+size = Vector2(24, 260)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qoue0"]
+size = Vector2(16, 24)
+
+[node name="Icicle" type="Node2D" unique_id=1284220192]
+script = ExtResource("1_xkkkl")
+warning_duration = null
+shake_amount = null
+shake_speed = null
+fall_speed = null
+respawn_fps = null
+
+[node name="SpriteTop" type="Sprite2D" parent="." unique_id=1857473989]
+texture = ExtResource("2_4htij")
+
+[node name="SpriteBottom" type="Sprite2D" parent="." unique_id=1119488135]
+texture = ExtResource("2_4htij")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1658883939]
+visible = false
+sprite_frames = SubResource("SpriteFrames_icicle")
+animation = &"break"
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1766432411]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=850167414]
+position = Vector2(0, 98)
+shape = SubResource("RectangleShape2D_4htij")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=2032783959 groups=["trap"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1901579001]
+shape = SubResource("RectangleShape2D_qoue0")
+
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=1707796170]
+target_position = Vector2(0, 8)
+
+[node name="StaticTop" type="Sprite2D" parent="." unique_id=748607996]
+texture = ExtResource("2_4htij")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_anim_sprite_animation_finished"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

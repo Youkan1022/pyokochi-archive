@@ -1,0 +1,144 @@
+extends Node2D
+
+## つらら敵
+## IDLE: 6コマ目で待機
+## WARNING: 6コマ目を振動
+## FALLING: 7コマ目上半分=天井固定、下半分=落下
+## BREAKING: 8〜9コマ目の割れアニメ
+## RESPAWN: 1〜5コマ目の復活アニメ
+
+enum IcicleState {
+	IDLE,
+	WARNING,
+	FALLING,
+	BREAKING,
+	RESPAWN,
+}
+
+@export_group("Icicle Settings")
+@export var warning_duration: float = 0.8
+@export var shake_amount: float = 2.0
+@export var shake_speed: float = 40.0
+
+var state: IcicleState = IcicleState.IDLE
+var _warning_timer: float = 0.0
+var _shake_timer: float = 0.0
+var _fall_velocity: float = 0.0
+
+const FRAME_W: int = 32
+const FRAME_HALF_H: int = 24
+
+# IDLE/WARNING: 6コマ目全体を表示する1枚のSprite
+@onready var sprite_idle: Sprite2D = $SpriteTop
+# FALLING以降: 7コマ目上半分（天井固定部）
+@onready var sprite_ceiling: Sprite2D = $StaticTop
+# FALLING以降: 7コマ目上半分（落下部）
+@onready var sprite_falling: Sprite2D = $SpriteBottom
+# BREAKING/RESPAWN: AnimatedSprite2D
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var damage_shape: CollisionShape2D = $DamageArea/CollisionShape2D
+@onready var ground_ray: RayCast2D = $GroundRay
+
+var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+
+func _ready() -> void:
+	_set_state(IcicleState.IDLE)
+	SignalManager.on_stage_reset.connect(_on_stage_reset)
+
+
+func _process(delta: float) -> void:
+	match state:
+		IcicleState.IDLE:
+			pass
+
+		IcicleState.WARNING:
+			_warning_timer -= delta
+			_shake_timer += delta * shake_speed
+			# 6コマ目全体を振動
+			sprite_idle.position.x = sin(_shake_timer) * shake_amount
+			if _warning_timer <= 0.0:
+				_set_state(IcicleState.FALLING)
+
+		IcicleState.FALLING:
+			_fall_velocity += GRAVITY * delta
+			var dy: float = _fall_velocity * delta
+			sprite_falling.position.y += dy
+			$DamageArea.position.y += dy
+			# GroundRay の起点を sprite_falling の下端に常に同期
+			ground_ray.position.y = sprite_falling.position.y + FRAME_HALF_H / 2
+			if ground_ray.is_colliding():
+				_set_state(IcicleState.BREAKING)
+
+		IcicleState.BREAKING, IcicleState.RESPAWN, IcicleState.IDLE:
+			pass
+
+
+func _set_state(new_state: IcicleState) -> void:
+	state = new_state
+	match state:
+		IcicleState.IDLE:
+			# 6コマ目を全体表示、その他は非表示
+			sprite_idle.visible = true
+			sprite_idle.position = Vector2.ZERO
+			sprite_idle.region_enabled = true
+			sprite_idle.region_rect = Rect2(5 * FRAME_W, 0, FRAME_W, FRAME_HALF_H * 2)
+			sprite_ceiling.visible = false
+			sprite_falling.visible = false
+			anim_sprite.visible = false
+			damage_shape.set_deferred("disabled", true)
+
+		IcicleState.WARNING:
+			_warning_timer = warning_duration
+			_shake_timer = 0.0
+			# 表示はIDLEのまま（6コマ目）、振動だけ開始
+			damage_shape.set_deferred("disabled", true)
+
+		IcicleState.FALLING:
+			_fall_velocity = 0.0
+			sprite_idle.visible = false
+			# 7コマ目上半分 = 天井固定（動かない）
+			sprite_ceiling.visible = true
+			sprite_ceiling.region_enabled = true
+			sprite_ceiling.region_rect = Rect2(6 * FRAME_W, 0, FRAME_W, FRAME_HALF_H)
+			sprite_ceiling.position = Vector2(0, -FRAME_HALF_H / 2)
+			# 7コマ目下半分 = 落下するつらら（上半分の直下に配置）
+			sprite_falling.visible = true
+			sprite_falling.region_enabled = true
+			sprite_falling.region_rect = Rect2(6 * FRAME_W, FRAME_HALF_H, FRAME_W, FRAME_HALF_H)
+			sprite_falling.position = Vector2(0, 0)
+			# DamageArea・GroundRayも初期位置にリセット
+			$DamageArea.position = Vector2.ZERO
+			ground_ray.position = Vector2.ZERO
+			damage_shape.set_deferred("disabled", false)
+
+		IcicleState.BREAKING:
+			damage_shape.set_deferred("disabled", true)
+			sprite_falling.visible = false
+			# 割れアニメを落下先の位置で再生
+			anim_sprite.visible = true
+			anim_sprite.position.y = sprite_falling.position.y
+			anim_sprite.play("break")
+			# sprite_ceiling はそのまま表示しておく
+
+		IcicleState.RESPAWN:
+			sprite_ceiling.visible = false
+			anim_sprite.position.y = 0
+			anim_sprite.play("respawn")
+
+
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player") and state == IcicleState.IDLE:
+		_set_state(IcicleState.WARNING)
+
+
+func _on_anim_sprite_animation_finished() -> void:
+	match anim_sprite.animation:
+		"break":
+			_set_state(IcicleState.RESPAWN)
+		"respawn":
+			_set_state(IcicleState.IDLE)
+
+
+func _on_stage_reset() -> void:
+	_set_state(IcicleState.IDLE)
