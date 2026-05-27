@@ -30,11 +30,10 @@ func _on_wind_changed(wind: Vector2) -> void:
 func set_theme(theme: String) -> void:
 	var mat = process_material.duplicate() as ParticleProcessMaterial
 	process_material = mat
-	
 	match theme:
 		"forest":
 			texture = leaf_spring_texture
-			material = canvas_item_material
+			# CanvasItemMaterialは外部のインスペクターで設定済みなので触らない
 		"dirt":
 			texture = dirt_texture
 			modulate = Color(0.65, 0.25, 0.1)
@@ -49,8 +48,8 @@ func set_theme(theme: String) -> void:
 			mat.scale_max = 1.0
 		"snow":
 			texture = snow_texture
-			material = canvas_item_material
+			# CanvasItemMaterialは外部のインスペクターで設定済みなので触らない
 		"lava":
 			texture = lava_texture
-			material = canvas_item_material
+			# CanvasItemMaterialは外部のインスペクターで設定済みなので触らない
 			

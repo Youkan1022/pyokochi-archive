@@ -71,6 +71,7 @@ func _set_wind(direction: WindDirection) -> void:
 	on_wind_changed.emit(current_wind)
 
 func enable_wind(direction: WindDirection) -> void:
+	disable_wind()  # 先にリセットして二重起動を防ぐ
 	wind_direction = direction
 	wind_enabled = true
 	_start_cycle()

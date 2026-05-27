@@ -9,8 +9,14 @@ func _ready() -> void:
 	if idx != -1:
 		GameManager.current_level_index = idx
 	SignalManager.on_player_hit.connect(_on_player_hit)
-	#WindManager.enable_wind(WindManager.WindDirection.RIGHT)
-	#$pyokochi/Camera/WindParticles.set_theme("dirt")
+	WindManager.enable_wind(WindManager.WindDirection.LEFT)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var wind_particles = get_node_or_null("pyokochi/Camera/WindParticles")
+	if wind_particles:
+		wind_particles.set_theme("forest")
+	else:
+		push_error("WindParticles not found!")
 
 
 func _on_player_hit() -> void:

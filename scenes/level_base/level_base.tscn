@@ -21,11 +21,13 @@
 [ext_resource type="PackedScene" uid="uid://3xt2ru1itjn2" path="res://scenes/enemies/slime.tscn" id="17_qgxpy"]
 [ext_resource type="PackedScene" uid="uid://bexd20ae5o6s5" path="res://scenes/enemies/slime_red.tscn" id="18_bkv5l"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4foc"]
+
 [sub_resource type="Curve2D" id="Curve2D_hltye"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 318, -97, 0, 0, 0, 0, 406, -96)
+"points": PackedVector2Array(0, 0, 0, 0, 318, -97, 0, 0, 0, 0, 384.63745, -96.54773, 0, 0, 0, 0, 406, -96)
 }
-point_count = 2
+point_count = 3
 
 [node name="levelBase" type="Node2D" unique_id=2105239431]
 script = ExtResource("1_48c0a")
@@ -47,6 +49,7 @@ script = ExtResource("6_v0a34")
 
 [node name="WindParticles" parent="pyokochi/Camera" unique_id=693732154 instance=ExtResource("13_od1d2")]
 position = Vector2(-320, 180)
+canvas_item_material = SubResource("CanvasItemMaterial_r4foc")
 
 [node name="start" parent="." unique_id=596774167 instance=ExtResource("5_kr674")]
 position = Vector2(111, -30)
