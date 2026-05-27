@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bypdo8fkiahwo"]
+
+[ext_resource type="Script" uid="uid://dvo0bqfssv2x0" path="res://scenes/Background/background_rocky.gd" id="1_oiytb"]
+[ext_resource type="Texture2D" uid="uid://db7qdkvfdk5qm" path="res://assets/Rocky Roads/Backgrounds/mountains_a.png" id="2_daf41"]
+
+[node name="Background_rocky_mountains_a" type="ParallaxBackground" unique_id=437863645]
+script = ExtResource("1_oiytb")
+
+[node name="ParallaxLayer_color" type="ParallaxLayer" parent="." unique_id=612587014]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer_color" unique_id=415350422]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="ParallaxLayer_bg" type="ParallaxLayer" parent="." unique_id=656986029]
+position = Vector2(0, -380)
+motion_scale = Vector2(0.3, 0.1)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D_bg" type="Sprite2D" parent="ParallaxLayer_bg" unique_id=1494191917]
+texture_repeat = 2
+texture = ExtResource("2_daf41")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)
+
+[node name="ParallaxLayer_deco" type="ParallaxLayer" parent="." unique_id=947560457]
+position = Vector2(0, -380)
+motion_scale = Vector2(0.6, 0.2)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D_deco" type="Sprite2D" parent="ParallaxLayer_deco" unique_id=220617278]
+visible = false
+texture_repeat = 2
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)

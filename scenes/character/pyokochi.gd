@@ -52,7 +52,7 @@ var attack_cooldown_max: float = 0.5
 @export var wall_cling_push_speed: float = 40.0
 ## 壁に張り付いたときの上下移動速度
 @export var wall_climb_speed: float = 80.0
-@export var wall_cling_duration: float = 2.0  # 壁登り可能な時間（秒）
+@export var wall_cling_duration: float = 1.0  # 壁登り可能な時間（秒）
 var wall_cling_time_left: float = 0.0
 var wall_cling_locked: bool = false
 var can_jump: bool = false # ジャンプ可能かどうか

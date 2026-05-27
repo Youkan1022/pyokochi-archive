@@ -39,7 +39,7 @@ tile_map_data = PackedByteArray("AAArAAMAAQALAAMAAAArAAIAAQALAAIAAAArAAEAAQALAAI
 position = Vector2(49, -55)
 
 [node name="Camera" parent="pyokochi" unique_id=439522786 instance=ExtResource("1_myc1q")]
-position = Vector2(271, -125)
+position = Vector2(275, -125)
 position_smoothing_speed = 12.0
 drag_top_margin = 0.3
 drag_bottom_margin = 0.1

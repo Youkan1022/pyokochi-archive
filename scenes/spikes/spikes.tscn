@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://7sln2mnyuqib"]
 
-[ext_resource type="Texture2D" uid="uid://c0bncwgxx6pxe" path="res://assets/Traps/Spikes/Idle.png" id="1_1dqlq"]
+[ext_resource type="Texture2D" uid="uid://dro1iex08h5p0" path="res://assets/Rocky Roads/Enemies/spikes.png" id="1_1dqlq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1dqlq"]
-size = Vector2(25.5, 4)
+size = Vector2(26.75, 7)
 
 [node name="spikes" type="Area2D" unique_id=1826627450 groups=["trap"]]
 position = Vector2(8, -8)
@@ -12,11 +12,15 @@ collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=744103321]
 texture = ExtResource("1_1dqlq")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1086605255]
-position = Vector2(16, 0)
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1800791073]
+position = Vector2(14, 0)
 texture = ExtResource("1_1dqlq")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=611489257]
-position = Vector2(7.25, 6)
+position = Vector2(7, 4)
 shape = SubResource("RectangleShape2D_1dqlq")

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://f5ty2hcx5k03"]
+
+[ext_resource type="Script" uid="uid://dvo0bqfssv2x0" path="res://scenes/Background/background_rocky.gd" id="1_ibxvm"]
+[ext_resource type="Texture2D" uid="uid://ijpytcmuqg7t" path="res://assets/Rocky Roads/Backgrounds/desert_b.png" id="2_3pv5d"]
+
+[node name="Background_rocky_desert_b" type="ParallaxBackground" unique_id=433882156]
+script = ExtResource("1_ibxvm")
+
+[node name="ParallaxLayer_color" type="ParallaxLayer" parent="." unique_id=453699342]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer_color" unique_id=870585541]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.5, 0.7, 1, 1)
+
+[node name="ParallaxLayer_bg" type="ParallaxLayer" parent="." unique_id=130068545]
+position = Vector2(0, -380)
+motion_scale = Vector2(0.3, 0.1)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D_bg" type="Sprite2D" parent="ParallaxLayer_bg" unique_id=915196525]
+texture_repeat = 2
+texture = ExtResource("2_3pv5d")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)
+
+[node name="ParallaxLayer_deco" type="ParallaxLayer" parent="." unique_id=1696732968]
+position = Vector2(0, -380)
+motion_scale = Vector2(0.6, 0.2)
+motion_mirroring = Vector2(256, 0)
+
+[node name="Sprite2D_deco" type="Sprite2D" parent="ParallaxLayer_deco" unique_id=30692114]
+visible = false
+texture_repeat = 2
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)
