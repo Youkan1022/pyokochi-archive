@@ -6,13 +6,6 @@
 [node name="Background_rocky_clouds" type="ParallaxBackground" unique_id=259795175]
 script = ExtResource("1_hrvsu")
 
-[node name="ParallaxLayer_color" type="ParallaxLayer" parent="." unique_id=521340278]
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxLayer_color" unique_id=2087352986]
-offset_right = 1280.0
-offset_bottom = 720.0
-color = Color(0.5, 0.7, 1, 1)
-
 [node name="ParallaxLayer_bg" type="ParallaxLayer" parent="." unique_id=621315834]
 position = Vector2(0, -380)
 motion_scale = Vector2(0.3, 0.1)

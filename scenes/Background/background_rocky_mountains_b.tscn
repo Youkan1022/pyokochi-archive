@@ -6,13 +6,6 @@
 [node name="Background_rocky_mountains_b" type="ParallaxBackground" unique_id=1726368139]
 script = ExtResource("1_cojoy")
 
-[node name="ParallaxLayer_color" type="ParallaxLayer" parent="." unique_id=1578456782]
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxLayer_color" unique_id=1329223727]
-offset_right = 1280.0
-offset_bottom = 720.0
-color = Color(0.5, 0.7, 1, 1)
-
 [node name="ParallaxLayer_bg" type="ParallaxLayer" parent="." unique_id=779588088]
 position = Vector2(0, -380)
 motion_scale = Vector2(0.3, 0.1)

@@ -29,5 +29,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var facing_dir = 1.0 if not (player.get_node("AnimatedSprite2D") as AnimatedSprite2D).flip_h else -1.0
 	_current_x_offset = lerp(_current_x_offset, facing_dir * initial_offset, offset_smooth_speed * _delta)
-	global_position = player.global_position + Vector2(_current_x_offset, vertical_offset)
-	global_position = global_position.round()
+	var target = player.global_position + Vector2(_current_x_offset, vertical_offset)
+	# limitを手動で適用
+	var half_w = get_viewport_rect().size.x / 2.0
+	var half_h = get_viewport_rect().size.y / 2.0
+	target.x = clamp(target.x, cam_limit_left + half_w, cam_limit_right - half_w)
+	target.y = clamp(target.y, cam_limit_top + half_h, cam_limit_bottom - half_h)
+	global_position = target.round()

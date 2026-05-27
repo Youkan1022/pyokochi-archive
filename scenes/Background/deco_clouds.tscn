@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ca3k84pcnwg8r"]
+
+[ext_resource type="Script" uid="uid://tmmndvn6k7j2" path="res://scenes/Background/deco_clouds.gd" id="1_ggl2x"]
+
+[node name="DecoClouds" type="Node2D" unique_id=973072629]
+script = ExtResource("1_ggl2x")

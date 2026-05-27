@@ -1,7 +1,7 @@
-[gd_scene format=4 uid="uid://c4p71a7n4k185"]
+[gd_scene format=4 uid="uid://bbvngs4ng4w13"]
 
 [ext_resource type="PackedScene" uid="uid://0n5pqgq7n5ec" path="res://scenes/tilemap/tilemap_ground.tscn" id="1_0j78r"]
-[ext_resource type="Script" uid="uid://3mpm8kkiejfw" path="res://scenes/level_base/level_base.gd" id="1_mgr5c"]
+[ext_resource type="Script" uid="uid://3mpm8kkiejfw" path="res://scenes/level_base/level_base.gd" id="1_i3fxk"]
 [ext_resource type="PackedScene" uid="uid://0e0cljwvquw7" path="res://scenes/start/start.tscn" id="2_3v0iu"]
 [ext_resource type="PackedScene" uid="uid://ca3k84pcnwg8r" path="res://scenes/Background/deco_clouds.tscn" id="3_sshi2"]
 [ext_resource type="PackedScene" uid="uid://brrt03sgvwyvb" path="res://scenes/character/pyokochi.tscn" id="3_y0n2o"]
@@ -12,10 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://bhehnsuxdvi8b" path="res://scenes/goal/goal.tscn" id="8_ggaws"]
 [ext_resource type="PackedScene" uid="uid://u2ch8dyksqfu" path="res://scenes/Background/background_rocky_tree.tscn" id="9_stqo0"]
 [ext_resource type="Texture2D" uid="uid://lu0dkaed7bcd" path="res://assets/Rocky Roads/Backgrounds/trees.png" id="10_vkspf"]
-[ext_resource type="PackedScene" uid="uid://ihiqw4fyt6bp" path="res://scenes/hud/hud.tscn" id="13_axobi"]
+[ext_resource type="PackedScene" uid="uid://ihiqw4fyt6bp" path="res://scenes/hud/hud.tscn" id="13_67h61"]
 
-[node name="level1" type="Node2D" unique_id=1047563482]
-script = ExtResource("1_mgr5c")
+[node name="level2" type="Node2D" unique_id=1047563482]
+script = ExtResource("1_i3fxk")
 
 [node name="BgColorLayer" type="CanvasLayer" parent="." unique_id=1950229970]
 layer = -128
@@ -88,6 +88,6 @@ position = Vector2(842, -24)
 [node name="goal" parent="." unique_id=276107685 instance=ExtResource("8_ggaws")]
 position = Vector2(1006, -33)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=297720024]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1658135861]
 
-[node name="HUD" parent="CanvasLayer" unique_id=2020203234 instance=ExtResource("13_axobi")]
+[node name="HUD" parent="CanvasLayer" unique_id=2020203234 instance=ExtResource("13_67h61")]

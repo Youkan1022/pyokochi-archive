@@ -3,26 +3,23 @@ extends Control
 @onready var background: ColorRect = $Background
 
 func _ready() -> void:
-	#常時プロセスを有効化
 	set_process_mode(Node2D.PROCESS_MODE_ALWAYS)
-	hide_hud() #HUDを初期状態で非表示にする
-	SignalManager.on_game_complete.connect(on_game_complete) #ゲーム完了時のシグナルに接続
+	hide_hud()
+	SignalManager.on_game_complete.connect(on_game_complete)
 
 func _process(delta: float) -> void:
-	#ゴール後、スペースキーでメニューに戻る
 	if background.visible:
 		if Input.is_action_just_pressed("jump"):
-			GameManager.load_main_scene()
+			get_tree().paused = false
+			GameManager.load_next_level()
 
-# HUDを非表示
-func hide_hud():
+func hide_hud() -> void:
 	background.visible = false
 
-# HUDを表示
-func show_hud():
-	get_tree().paused = true # ゲームを一時停止
+func show_hud() -> void:
+	get_tree().paused = true
 	background.visible = true
 
-func on_game_complete():
+func on_game_complete() -> void:
 	show_hud()
 	
