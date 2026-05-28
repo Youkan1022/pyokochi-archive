@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://6uu6txupeira"]
+
+[ext_resource type="Script" uid="uid://wnuxegip06fu" path="res://scenes/gimmick/bomb_dropper.gd" id="1_bfoho"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfoho"]
+size = Vector2(64, 64)
+
+[node name="BombDropper" type="Area2D" unique_id=756369186]
+collision_layer = 0
+script = ExtResource("1_bfoho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1979505892]
+shape = SubResource("RectangleShape2D_bfoho")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
