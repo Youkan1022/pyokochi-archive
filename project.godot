@@ -30,6 +30,10 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[editor]
+
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")

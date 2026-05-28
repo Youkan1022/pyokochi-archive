@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ducqh4nlr83gh"]
+
+[ext_resource type="Texture2D" uid="uid://wuwbey4jxbyb" path="res://assets/Rocky Roads/Deco/tree.png" id="1_u74cm"]
+
+[node name="deco_tree" type="Sprite2D" unique_id=1410080707]
+z_index = -2
+texture = ExtResource("1_u74cm")

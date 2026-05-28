@@ -13,7 +13,7 @@ enum BombState {
 
 @export_group("Bomb Settings")
 ## 爆発までの時間（秒）
-@export var fuse_duration: float = 1.5
+@export var fuse_duration: float = 1.0
 ## 点滅の速さ（爆発直前は速くなる）
 @export var blink_speed_start: float = 4.0
 @export var blink_speed_end: float = 20.0

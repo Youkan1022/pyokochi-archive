@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bi6e6rp5056jo"]
+
+[ext_resource type="Texture2D" uid="uid://fhd88r1h38h8" path="res://assets/TileSet/GrassFieldTileSet/full_spritesheet/Tile_GrassField.png" id="1_35seh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy5jb"]
+atlas = ExtResource("1_35seh")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myfr2"]
+atlas = ExtResource("1_35seh")
+region = Rect2(48, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bocp"]
+atlas = ExtResource("1_35seh")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_da0b3"]
+atlas = ExtResource("1_35seh")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bnp2v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy5jb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myfr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bocp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_da0b3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="deco_bonfire" type="AnimatedSprite2D" unique_id=350946530]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_bnp2v")
+autoplay = "default"

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://irkxay07nw1c"]
+
+[ext_resource type="Texture2D" uid="uid://dj5g5r2mophds" path="res://assets/Rocky Roads/Objects/crate.png" id="1_gkn6x"]
+
+[node name="deco_box" type="Sprite2D" unique_id=39190669]
+texture = ExtResource("1_gkn6x")
+region_enabled = true
+region_rect = Rect2(8, 9, 17, 16)

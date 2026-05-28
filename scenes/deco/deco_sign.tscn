@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ddcxflfch7haf"]
+
+[ext_resource type="Texture2D" uid="uid://2jfjcskho02c" path="res://assets/Rocky Roads/Objects/sign.png" id="1_23rhs"]
+
+[node name="deco_sign" type="Sprite2D" unique_id=706337245]
+texture = ExtResource("1_23rhs")

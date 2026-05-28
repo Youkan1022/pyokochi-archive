@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3k8b7lnqi1g2"]
+
+[ext_resource type="Texture2D" uid="uid://b1gl40wmxf3jh" path="res://assets/Rocky Roads/Objects/sign_arrow.png" id="1_doup7"]
+
+[node name="deco_sign_arrow" type="Sprite2D" unique_id=1180194356]
+texture = ExtResource("1_doup7")
