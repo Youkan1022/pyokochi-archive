@@ -10,8 +10,12 @@ extends Area2D
 @export var bomb_scene: PackedScene
 ## スポーン位置のY オフセット（エリア上端からさらに上）
 @export var spawn_height_offset: float = 100.0
+## 何回侵入したら召喚するか
+@export var trigger_count: int = 1
 
 var _triggered: bool = false
+var _enter_count: int = 0
+var _spawned_bomb: Node = null
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -25,8 +29,10 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if not body.is_in_group("player"):
 		return
-	_triggered = true
-	_spawn_bomb()
+	_enter_count += 1
+	if _enter_count >= trigger_count:
+		_triggered = true
+		_spawn_bomb()
 
 
 func _spawn_bomb() -> void:
@@ -35,16 +41,22 @@ func _spawn_bomb() -> void:
 		return
 
 	var bomb = bomb_scene.instantiate()
-	get_parent().call_deferred("add_child", bomb)
-	await get_tree().process_frame
 
-	# スポーン位置: エリア中央X、エリア上端より spawn_height_offset 上
+	# add_child 前に position を設定（_ready 前に位置確定）
 	var area_center_x: float = global_position.x
 	var area_top_y: float = global_position.y
 	if collision_shape and collision_shape.shape:
 		area_top_y = global_position.y - collision_shape.shape.get_rect().size.y / 2.0
-	bomb.global_position = Vector2(area_center_x, area_top_y - spawn_height_offset)
+	bomb.position = Vector2(area_center_x, area_top_y - spawn_height_offset)
+
+	# 物理クエリのフラッシュ外に add_child する
+	get_parent().add_child.call_deferred(bomb)
+	_spawned_bomb = bomb
 
 
 func _on_stage_reset() -> void:
 	_triggered = false
+	_enter_count = 0
+	if is_instance_valid(_spawned_bomb):
+		_spawned_bomb.queue_free()
+	_spawned_bomb = null

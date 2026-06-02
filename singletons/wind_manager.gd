@@ -19,6 +19,7 @@ enum WindDirection {
 # 現在の風のベクトル
 var current_wind: Vector2 = Vector2.ZERO
 var is_blowing: bool = false
+var _cycle_generation: int = 0  # サイクルの世代（古いループを無効化）
 
 signal on_wind_changed(wind: Vector2)
 signal on_wind_coming(wind: Vector2)  # 風が吹く0.3秒前の予告
@@ -28,20 +29,23 @@ func _ready() -> void:
 		_start_cycle()
 
 func _start_cycle() -> void:
-	while wind_enabled:
+	# 今回のループの世代を記録。これが変わったら古いループと判断して抜ける
+	_cycle_generation += 1
+	var my_generation: int = _cycle_generation
+	while wind_enabled and my_generation == _cycle_generation:
 		# 待機（0.3秒前に予告シグナルを出す）
 		await get_tree().create_timer(interval_duration - 0.3).timeout
-		if !wind_enabled:
+		if !wind_enabled or my_generation != _cycle_generation:
 			break
 		# 0.3秒前に予告
 		on_wind_coming.emit(_get_wind_vector(wind_direction))
 		await get_tree().create_timer(0.3).timeout
-		if !wind_enabled:
+		if !wind_enabled or my_generation != _cycle_generation:
 			break
 		# 実際に風を吹かせる
 		_set_wind(wind_direction)
 		await get_tree().create_timer(blow_duration).timeout
-		if !wind_enabled:
+		if !wind_enabled or my_generation != _cycle_generation:
 			break
 		# 風を止める
 		_set_wind(WindDirection.NONE)
@@ -78,4 +82,5 @@ func enable_wind(direction: WindDirection) -> void:
 
 func disable_wind() -> void:
 	wind_enabled = false
+	_cycle_generation += 1  # 走行中のループを無効化
 	_set_wind(WindDirection.NONE)

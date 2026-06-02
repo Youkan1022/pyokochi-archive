@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://c4p71a7n4k185"]
 
 [ext_resource type="PackedScene" uid="uid://0n5pqgq7n5ec" path="res://scenes/tilemap/tilemap_ground.tscn" id="1_0j78r"]
-[ext_resource type="Script" uid="uid://3mpm8kkiejfw" path="res://scenes/level_base/level_base.gd" id="1_mgr5c"]
+[ext_resource type="Script" path="res://scenes/level_base/level_1.gd" id="1_mgr5c"]
 [ext_resource type="PackedScene" uid="uid://0e0cljwvquw7" path="res://scenes/start/start.tscn" id="2_3v0iu"]
 [ext_resource type="PackedScene" uid="uid://ca3k84pcnwg8r" path="res://scenes/Background/deco_clouds.tscn" id="3_sshi2"]
 [ext_resource type="PackedScene" uid="uid://brrt03sgvwyvb" path="res://scenes/character/pyokochi.tscn" id="3_y0n2o"]

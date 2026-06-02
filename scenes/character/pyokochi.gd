@@ -225,7 +225,14 @@ func flip_gravity() -> void:
 func fallen_off():
 	# 一定距離落下した場合にプレイヤーをヒット状態に
 	if global_position.y > 100:
+		if state == PLAYER_STATE.HIT:
+			return
+		velocity = Vector2.ZERO
+		set_state(PLAYER_STATE.HIT)
+		AudioManager.play("damage")
+		await get_tree().create_timer(1.5).timeout
 		SignalManager.on_player_hit.emit()
+		set_state(PLAYER_STATE.IDLE)
 		
 # 入力の取得
 func get_input():

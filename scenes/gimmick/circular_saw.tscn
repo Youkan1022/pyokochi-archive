@@ -13,6 +13,7 @@ script = ExtResource("1_tuv3a")
 rotate_speed = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=121996668]
+z_index = 2
 texture = ExtResource("2_op0es")
 region_enabled = true
 region_rect = Rect2(0, 0, 34, 34)

@@ -11,11 +11,13 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=744103321]
+z_index = 2
 texture = ExtResource("1_1dqlq")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1800791073]
+z_index = 2
 position = Vector2(14, 0)
 texture = ExtResource("1_1dqlq")
 region_enabled = true

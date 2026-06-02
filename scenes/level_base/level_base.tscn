@@ -78,3 +78,4 @@ position = Vector2(237, -108)
 [node name="BombDropper" parent="." unique_id=1886854547 instance=ExtResource("17_qgxpy")]
 position = Vector2(485, -65)
 bomb_scene = ExtResource("18_bkv5l")
+trigger_count = 2

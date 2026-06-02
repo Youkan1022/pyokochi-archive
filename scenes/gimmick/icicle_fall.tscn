@@ -44,6 +44,7 @@ size = Vector2(9.75, 25)
 script = ExtResource("1_fall")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1792820411]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_fall")
 animation = &"fall"
 
