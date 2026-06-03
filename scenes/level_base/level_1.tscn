@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://c4p71a7n4k185"]
 
 [ext_resource type="PackedScene" uid="uid://0n5pqgq7n5ec" path="res://scenes/tilemap/tilemap_ground.tscn" id="1_0j78r"]
-[ext_resource type="Script" path="res://scenes/level_base/level_1.gd" id="1_mgr5c"]
+[ext_resource type="Script" uid="uid://ckrt1d54sfqag" path="res://scenes/level_base/level_1.gd" id="1_mgr5c"]
 [ext_resource type="PackedScene" uid="uid://0e0cljwvquw7" path="res://scenes/start/start.tscn" id="2_3v0iu"]
 [ext_resource type="PackedScene" uid="uid://ca3k84pcnwg8r" path="res://scenes/Background/deco_clouds.tscn" id="3_sshi2"]
 [ext_resource type="PackedScene" uid="uid://brrt03sgvwyvb" path="res://scenes/character/pyokochi.tscn" id="3_y0n2o"]
@@ -17,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://ihiqw4fyt6bp" path="res://scenes/hud/hud.tscn" id="13_axobi"]
 [ext_resource type="PackedScene" uid="uid://ducqh4nlr83gh" path="res://scenes/deco/deco_tree.tscn" id="14_cjrmb"]
 [ext_resource type="PackedScene" uid="uid://gfp4t1oteyhm" path="res://scenes/deco/deco_bush.tscn" id="15_bv6ra"]
+[ext_resource type="PackedScene" uid="uid://bf382w3qjv5ak" path="res://scenes/hud/sign_message1.tscn" id="17_ht2kt"]
+[ext_resource type="PackedScene" uid="uid://ddcxflfch7haf" path="res://scenes/deco/deco_sign.tscn" id="18_pd5ii"]
 
 [node name="level1" type="Node2D" unique_id=1047563482]
 script = ExtResource("1_mgr5c")
@@ -43,9 +45,6 @@ tile_map_data = PackedByteArray("AAAWAAIAAAAEAAIAAAAWAAEAAAADAAIAAAAWAAAAAAAFAAM
 
 [node name="TileMapLayer_deco" parent="TileMapLayer_ground" unique_id=1912755251 instance=ExtResource("6_ig16q")]
 tile_map_data = PackedByteArray("AAD0//7/AQACAAAAAAD1//7/AQADAAAAAAADAP7/AQACAAAAAAAEAP7/AQADAAAAAAD5//7/AQAFAAAAAADy//7/AQACAAAAAAATAP7/AQADAAAAAAAUAP7/AQAFAAAAAAAXAP7/AQAFAAAAAAAYAPH/AQACAAAAAAAZAPH/AQADAAAAAAAbAPH/AQADAAAAAAAaAPH/AQACAAAAAAAdAPH/AQAFAAAAAAAgAP7/AQACAAAAAAAfAP7/AQACAAAAAAAhAP7/AQADAAAAAAAoAP7/AQAFAAAAAAAyAP7/AQADAAAAAAAzAP7/AQACAAAAAABAAP7/AQAFAAAAAAA=")
-
-[node name="deco_bonfire" parent="TileMapLayer_ground" unique_id=350946530 instance=ExtResource("7_20s5o")]
-position = Vector2(-120, -23)
 
 [node name="start" parent="." unique_id=596774167 instance=ExtResource("2_3v0iu")]
 position = Vector2(-153, -15)
@@ -105,6 +104,13 @@ position = Vector2(1006, -33)
 
 [node name="deco" type="Node2D" parent="." unique_id=1633326727]
 position = Vector2(-37, -40)
+
+[node name="deco_bonfire" parent="deco" unique_id=350946530 instance=ExtResource("7_20s5o")]
+position = Vector2(-45, 16)
+
+[node name="deco_sign" parent="deco" unique_id=706337245 instance=ExtResource("18_pd5ii")]
+position = Vector2(-82, 8)
+message_scene = ExtResource("17_ht2kt")
 
 [node name="deco_tree" parent="deco" unique_id=1410080707 instance=ExtResource("14_cjrmb")]
 

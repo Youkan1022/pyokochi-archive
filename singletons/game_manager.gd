@@ -2,7 +2,6 @@ extends Node
 
 const MAIN_SCENE: PackedScene = preload("res://scenes/main/main.tscn")
 const LEVELS: Array = [
-	"res://scenes/level_base/level_base.tscn",
 	"res://scenes/level_base/level_1.tscn",
 	"res://scenes/level_base/level_2.tscn",
 	"res://scenes/level_base/level_3.tscn",

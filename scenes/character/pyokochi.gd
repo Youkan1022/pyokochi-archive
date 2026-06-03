@@ -13,6 +13,9 @@ enum PLAYER_STATE {
 }
 var GRAVITY = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_gravity_flipped: bool = false
+## 重力反転時のY速度保持率（1.0=減速なし、小さいほど強く減速）
+@export var flip_velocity_retention: float = 0.8
+var _last_flip_frame: int = -1  # 最後に反転した物理フレーム（重複防止用）
 
 # アニメーションスプライトの参照
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -215,12 +218,21 @@ func apply_gravity(delta: float):
 		else:
 			velocity.y = min(velocity.y, max_y_velocity)
 
-# 重力の反転
-func flip_gravity() -> void:
+# 重力の反転（実際に反転したら true を返す）
+func flip_gravity() -> bool:
+	# 同一物理フレーム内での重複反転を防ぐ（複数スイッチ同時押し対策）
+	var current_frame: int = Engine.get_physics_frames()
+	if current_frame == _last_flip_frame:
+		return false
+	_last_flip_frame = current_frame
+
 	is_gravity_flipped = !is_gravity_flipped
 	GRAVITY *= -1
 	up_direction *= -1
 	animated_sprite_2d.scale.y *= -1
+	# 反転の瞬間にY速度を少し減速（慣性は残るが反応がよくなる）
+	velocity.y *= flip_velocity_retention
+	return true
 
 func fallen_off():
 	# 一定距離落下した場合にプレイヤーをヒット状態に

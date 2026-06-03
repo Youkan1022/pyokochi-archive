@@ -19,7 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://lu0dkaed7bcd" path="res://assets/Rocky Roads/Backgrounds/trees.png" id="10_vkspf"]
 [ext_resource type="PackedScene" uid="uid://bi6e6rp5056jo" path="res://scenes/deco/deco_bonfire.tscn" id="11_ujcjs"]
 [ext_resource type="PackedScene" uid="uid://tlcenl46ydi" path="res://scenes/gimmick/circular_saw.tscn" id="12_8kgvg"]
+[ext_resource type="PackedScene" uid="uid://ddcxflfch7haf" path="res://scenes/deco/deco_sign.tscn" id="12_a18m1"]
 [ext_resource type="PackedScene" uid="uid://ihiqw4fyt6bp" path="res://scenes/hud/hud.tscn" id="13_67h61"]
+[ext_resource type="PackedScene" uid="uid://doo1wv15whsyf" path="res://scenes/hud/sign_message2.tscn" id="13_nfhv1"]
+[ext_resource type="PackedScene" uid="uid://3xt2ru1itjn2" path="res://scenes/enemies/slime.tscn" id="21_nfhv1"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8kgvg"]
 
@@ -59,24 +62,6 @@ tile_map_data = PackedByteArray("AAATAAIAAAADAAMAAAATAAEAAAAFAAMAAAATAAAAAAACAAM
 
 [node name="TileMapLayer_deco" parent="TileMapLayer_ground" unique_id=1912755251 instance=ExtResource("6_dil06")]
 tile_map_data = PackedByteArray("AADy//7/AQACAAAAAADz//7/AQADAAAAAAD8//7/AQAFAAAAAAARAP7/AQACAAAAAAASAP7/AQACAAAAAAAZAP7/AQAFAAAAAAATAPL/AQADAAAAAAAUAPL/AQADAAAAAAAUAOn/AQADAAAAAAAQAOn/AQAFAAAAAADy/93/AQACAAAAAADz/93/AQADAAAAAAD1/93/AQAFAAAAAAAOAN3/AQACAAAAAAAPAN3/AQADAAAAAAARAN3/AQAFAAAAAAAAAN3/AQACAAAAAAAXAN3/AQACAAAAAAAfAN3/AQACAAAAAAAbAN3/AQAFAAAAAAAEAN3/AQAFAAAAAADv/+n/AQAFAAAAAAArAPv/AQACAAAAAAAsAPv/AQADAAAAAAA=")
-
-[node name="deco_bush" parent="TileMapLayer_ground" unique_id=581099364 instance=ExtResource("7_kjl7p")]
-position = Vector2(773, -73)
-
-[node name="deco_tree" parent="TileMapLayer_ground" unique_id=1410080707 instance=ExtResource("8_36ys7")]
-position = Vector2(392, -40)
-
-[node name="deco_rock" parent="TileMapLayer_ground" unique_id=1156743925 instance=ExtResource("9_36ys7")]
-position = Vector2(402, -552)
-
-[node name="deco_tree3" parent="TileMapLayer_ground" unique_id=352315888 instance=ExtResource("8_36ys7")]
-position = Vector2(316, -568)
-
-[node name="deco_trunk" parent="TileMapLayer_ground" unique_id=1872978677 instance=ExtResource("10_ujcjs")]
-position = Vector2(295, -216)
-
-[node name="deco_bonfire" parent="TileMapLayer_ground" unique_id=350946530 instance=ExtResource("11_ujcjs")]
-position = Vector2(-121, -24)
 
 [node name="start" parent="." unique_id=596774167 instance=ExtResource("2_3v0iu")]
 position = Vector2(-153, -15)
@@ -358,7 +343,34 @@ path = NodePath("../Path2D")
 [node name="CircularSaw2" parent="gimmick/saw" unique_id=784656633 node_paths=PackedStringArray("path") instance=ExtResource("12_8kgvg")]
 path = NodePath("../Path2D2")
 
+[node name="deco" type="Node2D" parent="." unique_id=771336734]
+
+[node name="deco_sign" parent="deco" unique_id=706337245 instance=ExtResource("12_a18m1")]
+position = Vector2(-115, -32)
+message_scene = ExtResource("13_nfhv1")
+
+[node name="deco_bush" parent="deco" unique_id=581099364 instance=ExtResource("7_kjl7p")]
+position = Vector2(773, -73)
+
+[node name="deco_tree" parent="deco" unique_id=1410080707 instance=ExtResource("8_36ys7")]
+position = Vector2(392, -40)
+
+[node name="deco_rock" parent="deco" unique_id=1156743925 instance=ExtResource("9_36ys7")]
+position = Vector2(402, -552)
+
+[node name="deco_tree3" parent="deco" unique_id=352315888 instance=ExtResource("8_36ys7")]
+position = Vector2(316, -568)
+
+[node name="deco_trunk" parent="deco" unique_id=1872978677 instance=ExtResource("10_ujcjs")]
+position = Vector2(295, -216)
+
+[node name="deco_bonfire" parent="deco" unique_id=350946530 instance=ExtResource("11_ujcjs")]
+position = Vector2(-79, -24)
+
 [node name="enemy" type="Node2D" parent="." unique_id=804941937]
+
+[node name="Slime" parent="enemy" unique_id=422120192 instance=ExtResource("21_nfhv1")]
+position = Vector2(287, -360)
 
 [node name="goal" parent="." unique_id=276107685 instance=ExtResource("8_ggaws")]
 position = Vector2(741, -79)

@@ -29,5 +29,6 @@ func _fit_scale() -> void:
 	var scale_factor = viewport_size.y / tex_size.y
 	sprite_bg.scale = Vector2(scale_factor, scale_factor)
 	sprite_deco.scale = Vector2(scale_factor, scale_factor)
-	$ParallaxLayer_bg.motion_mirroring = Vector2(tex_size.x * scale_factor, 0)
-	$ParallaxLayer_deco.motion_mirroring = Vector2(tex_size.x * scale_factor, 0)
+	var node_scale_x = scale.x
+	$ParallaxLayer_bg.motion_mirroring = Vector2(tex_size.x * scale_factor * node_scale_x, 0)
+	$ParallaxLayer_deco.motion_mirroring = Vector2(tex_size.x * scale_factor * node_scale_x, 0)

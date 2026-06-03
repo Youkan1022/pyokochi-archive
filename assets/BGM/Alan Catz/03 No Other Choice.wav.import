@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://da84i7bchcpvu"
+path="res://.godot/imported/03 No Other Choice.wav-46a3ac93423157fd1c4ec3f22195220c.sample"
+
+[deps]
+
+source_file="res://assets/BGM/Alan Catz/03 No Other Choice.wav"
+dest_files=["res://.godot/imported/03 No Other Choice.wav-46a3ac93423157fd1c4ec3f22195220c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

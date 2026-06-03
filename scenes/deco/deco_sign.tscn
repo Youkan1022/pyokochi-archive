@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://ddcxflfch7haf"]
 
 [ext_resource type="Texture2D" uid="uid://2jfjcskho02c" path="res://assets/Rocky Roads/Objects/sign.png" id="1_23rhs"]
+[ext_resource type="Script" uid="uid://chx14vb3j0scy" path="res://scenes/deco/deco_sign.gd" id="2_53ply"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53ply"]
+size = Vector2(38, 33)
 
 [node name="deco_sign" type="Sprite2D" unique_id=706337245]
 texture = ExtResource("1_23rhs")
+script = ExtResource("2_53ply")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=17563120]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1631608513]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_53ply")

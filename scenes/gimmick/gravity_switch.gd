@@ -24,16 +24,16 @@ func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_nearby = false
 
-func _process(delta):
+func _physics_process(delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):
 		activate()
 
 func activate():
-	SignalManager.on_gravity_flipped.emit(!is_active)
-
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		player.flip_gravity()
+		# 実際に反転したときだけシグナルを発火（同フレーム重複は無視）
+		if player.flip_gravity():
+			SignalManager.on_gravity_flipped.emit(player.is_gravity_flipped)
 
 func _on_gravity_flipped(active: bool) -> void:
 	is_active = active

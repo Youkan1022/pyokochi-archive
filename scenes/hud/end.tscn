@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://ihiqw4fyt6bp"]
+[gd_scene format=3 uid="uid://ci8k1chnc53xp"]
 
-[ext_resource type="Script" uid="uid://bbcw3y8ackvuj" path="res://scenes/hud/hud.gd" id="1_48c2t"]
-[ext_resource type="Texture2D" uid="uid://xmuorerjm1it" path="res://assets/UI/PastelUIFree.png" id="2_cgeww"]
+[ext_resource type="Script" uid="uid://dflc2bukjmgjj" path="res://scenes/hud/end.gd" id="1_sokvy"]
+[ext_resource type="Texture2D" uid="uid://xmuorerjm1it" path="res://assets/UI/PastelUIFree.png" id="2_masse"]
 
 [sub_resource type="SystemFont" id="SystemFont_6kolt"]
 subpixel_positioning = 0
@@ -17,6 +17,10 @@ shadow_size = 0
 font_size = 44
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_small"]
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
 [node name="HUD" type="Control" unique_id=2020203234]
 layout_mode = 3
 anchors_preset = 15
@@ -24,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_48c2t")
+script = ExtResource("1_sokvy")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1803321169]
 layout_mode = 1
@@ -49,7 +53,7 @@ offset_bottom = -168.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
-texture = ExtResource("2_cgeww")
+texture = ExtResource("2_masse")
 region_rect = Rect2(178, 10, 47, 48)
 patch_margin_left = 8
 patch_margin_top = 8
@@ -79,5 +83,11 @@ label_settings = SubResource("LabelSettings_48c2t")
 [node name="Label2" type="Label" parent="Background/VBoxContainer" unique_id=1600456246]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "speaceおしてね"
+text = "この画面をスクショしてようかんに送って🐸"
 label_settings = SubResource("LabelSettings_6kolt")
+
+[node name="Label3" type="Label" parent="Background/VBoxContainer" unique_id=611873958]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Escでメイン画面へ"
+label_settings = SubResource("LabelSettings_small")
