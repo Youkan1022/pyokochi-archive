@@ -4,7 +4,7 @@ extends Node
 #
 # 使い方:
 #   AudioManager.play("jump")
-#   AudioManager.play("dash")
+#   AudioManager.play_bgm("level_1")
 
 # 各SEのファイルパス
 var SOUNDS = {
@@ -14,27 +14,44 @@ var SOUNDS = {
 	"damage":         {"path": "res://assets/SoundEffect/damage2.wav", "volume_db": -10.0},
 	"gravity_switch": {"path": "res://assets/SoundEffect/forceField_000.ogg", "volume_db": -15.0},
 	"bow_charge":     {"path": "res://assets/SoundEffect/Bow_Release.wav", "volume_db": 0.0},
-	"land":           {"path": "", "volume_db": 0.0},  # TODO: ファイルを追加したら設定
+	"land":           {"path": "", "volume_db": 0.0},
 	"goal":           {"path": "res://assets/SoundEffect/goal.wav", "volume_db": -20.0},
 	"explosion":      {"path": "res://assets/SoundEffect/explosionCrunch_000.ogg", "volume_db": -20.0},
-	"bomb_ticking":   {"path": "res://assets/SoundEffect/bomb_ticking.mp3", "volume_db": -10.0},  # TODO: SEファイルを追加したら設定
+	"bomb_ticking":   {"path": "res://assets/SoundEffect/bomb_ticking.mp3", "volume_db": -10.0},
+}
+
+# BGMのファイルパス
+var BGM = {
+	"main":   "res://assets/BGM/Alan Catz/01 The Adventure Begins!.wav",
+	"level_1": "res://assets/BGM/Alan Catz/02 Happy Exploring.wav",
+	"level_2": "res://assets/BGM/Alan Catz/02 Happy Exploring.wav",
+	"level_3": "res://assets/BGM/Alan Catz/03 No Other Choice.wav",
+	"level_4": "res://assets/BGM/Alan Catz/08 Don't Wanna Fight Anymore.wav",
+	"end":     "res://assets/BGM/Alan Catz/12 End of a Journey.wav",
 }
 
 # AudioStreamPlayer のプール（同時再生対応）
 var _players: Dictionary = {}
+var _bgm_player: AudioStreamPlayer
 
 func _ready() -> void:
 	for key in SOUNDS.keys():
 		var player := AudioStreamPlayer.new()
 		process_mode = Node.PROCESS_MODE_ALWAYS
 		player.name = "SE_" + key
-		player.volume_db = SOUNDS[key]["volume_db"]  # ← 追加
+		player.volume_db = SOUNDS[key]["volume_db"]
 		add_child(player)
 		_load_stream(player, key)
 		_players[key] = player
+	# BGM専用プレイヤー
+	_bgm_player = AudioStreamPlayer.new()
+	_bgm_player.name = "BGM"
+	_bgm_player.volume_db = -25.0
+	_bgm_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_bgm_player)
 
 func _load_stream(player: AudioStreamPlayer, key: String) -> void:
-	var path: String = SOUNDS[key].get("path", "")  # ← pathキーに変更
+	var path: String = SOUNDS[key].get("path", "")
 	if path == "":
 		return
 	if ResourceLoader.exists(path):
@@ -51,13 +68,32 @@ func play(key: String) -> void:
 		return
 	player.play()
 
-
 func stop(key: String) -> void:
 	if not _players.has(key):
 		return
 	_players[key].stop()
 
-# SEファイルを動的に差し替える（新しいファイルを追加した際に使用）
+func play_bgm(key: String) -> void:
+	if not BGM.has(key):
+		push_warning("AudioManager: 未登録のBGMキー -> " + key)
+		return
+	var path: String = BGM[key]
+	if not ResourceLoader.exists(path):
+		push_warning("AudioManager: BGMファイルが見つかりません -> " + path)
+		return
+	var stream = load(path)
+	if _bgm_player.stream == stream and _bgm_player.playing:
+		return  # 同じBGMが再生中なら何もしない
+	_bgm_player.stream = stream
+	_bgm_player.play()
+
+func stop_bgm() -> void:
+	_bgm_player.stop()
+
+func set_bgm_volume(volume_db: float) -> void:
+	_bgm_player.volume_db = volume_db
+
+# SEファイルを動的に差し替える
 func set_sound(key: String, path: String) -> void:
 	if not _players.has(key):
 		push_warning("AudioManager: 未登録のSEキー -> " + key)

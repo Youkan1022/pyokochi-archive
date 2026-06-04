@@ -4,6 +4,7 @@ extends "res://scenes/level_base/level_base.gd"
 
 
 func _level_setup() -> void:
+	AudioManager.play_bgm("level_2")
 	WindManager.enable_wind(WindManager.WindDirection.LEFT)
 	await get_tree().process_frame
 	await get_tree().process_frame

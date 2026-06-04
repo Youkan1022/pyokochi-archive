@@ -13,6 +13,7 @@ var current_level_index: int = 0
 
 func load_main_scene() -> void:
 	WindManager.disable_wind()
+	AudioManager.stop_bgm()
 	current_level_index = 0
 	get_tree().change_scene_to_packed(MAIN_SCENE)
 
@@ -20,7 +21,8 @@ func load_level_scene() -> void:
 	get_tree().change_scene_to_file(LEVELS[current_level_index])
 
 func load_next_level() -> void:
-	WindManager.disable_wind()  # レベル遷移時に風を確実に止める
+	WindManager.disable_wind()
+	AudioManager.stop_bgm()
 	current_level_index += 1
 	if current_level_index >= LEVELS.size():
 		get_tree().change_scene_to_file(END_SCENE)

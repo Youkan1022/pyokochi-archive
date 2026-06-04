@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://2jfjcskho02c" path="res://assets/Rocky Roads/Objects/sign.png" id="1_23rhs"]
 [ext_resource type="Script" uid="uid://chx14vb3j0scy" path="res://scenes/deco/deco_sign.gd" id="2_53ply"]
+[ext_resource type="PackedScene" uid="uid://pctut57878jq" path="res://scenes/deco/sing_ex.tscn" id="3_xte0e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53ply"]
 size = Vector2(38, 33)
@@ -16,3 +17,7 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1631608513]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_53ply")
+
+[node name="sing_ex" parent="." unique_id=1359807133 instance=ExtResource("3_xte0e")]
+position = Vector2(0, -29)
+scale = Vector2(0.75, 0.75)

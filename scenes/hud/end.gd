@@ -24,5 +24,6 @@ func show_hud() -> void:
 	background.visible = true
 
 func on_game_complete() -> void:
+	AudioManager.play_bgm("end")
 	show_hud()
 	

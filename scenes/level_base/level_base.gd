@@ -20,6 +20,7 @@ func _ready() -> void:
 func _on_player_hit() -> void:
 	SignalManager.on_stage_reset.emit()
 	WindManager.disable_wind()
+	AudioManager.stop_bgm()
 	# レベル固有のリセット処理（子クラスが必要なら実装）
 	_level_reset()
 	GameManager.load_level_scene()

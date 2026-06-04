@@ -7,4 +7,4 @@ extends "res://scenes/level_base/level_base.gd"
 
 
 func _level_setup() -> void:
-	pass
+	AudioManager.play_bgm("level_3")

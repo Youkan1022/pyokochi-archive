@@ -315,7 +315,6 @@ position = Vector2(-93, -24)
 
 [node name="deco_sign" parent="deco" unique_id=706337245 instance=ExtResource("21_blmhv")]
 position = Vector2(-173, -32)
-scale = Vector2(-1, 1)
 message_scene = ExtResource("22_1nt6a")
 
 [node name="BombDropper" parent="." unique_id=1543539195 instance=ExtResource("17_v76fj")]

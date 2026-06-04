@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://pctut57878jq"]
+
+[ext_resource type="Texture2D" uid="uid://bq4fsmrvbcv6d" path="res://assets/UI/SpeechBubble1.png" id="1_7qtpv"]
+[ext_resource type="PackedScene" uid="uid://ck5bi43bhy6ed" path="res://scenes/deco/f_anime.tscn" id="2_hcqxw"]
+
+[node name="sing_ex" type="Node2D" unique_id=1359807133]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1057448692]
+position = Vector2(1, 3.9999995)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_7qtpv")
+region_enabled = true
+region_rect = Rect2(5, 4, 22, 17)
+
+[node name="F_anime" parent="." unique_id=1872420059 instance=ExtResource("2_hcqxw")]
